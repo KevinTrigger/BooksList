@@ -1,34 +1,49 @@
-import './App.css';
-import { useState } from 'react';
-import BooksBoard from './components/BooksBoard';
-
+import "./App.css";
+import { useEffect, useState } from "react";
+import BooksBoard from "./components/BooksBoard";
+import ButtonAdd from "./components/ButtonAdd";
+import Input from "./components/Input";
+import CounterBooks from "./components/CounterBooks";
 
 function App() {
-
   const [currentAuthor, setCurrentAuthor] = useState("");
   const [currentTitle, setCurrentTitle] = useState("");
-  const [arrBooks, setArrBooks] = useState([]);
+  const [books, setBooks] = useState(
+    JSON.parse(localStorage.getItem("books")) || []
+  );
+ 
+  useEffect(() => {
+    localStorage.setItem("books", JSON.stringify(books));
+  }, [books]);
 
-  const addBook = () => {
-    (currentAuthor.length === 0 || currentTitle.length === 0)? alert('Проверьте правильность заполнения полей') : 
-    setArrBooks([...arrBooks, {
-      author: currentAuthor,
-      title: currentTitle
-    }]);
-  }
+  const addedField = {
+    author: currentAuthor,
+    title: currentTitle,
+  };
 
-  const deleteBook = (indexDelete) => {
-    setArrBooks(arrBooks.filter((item, id) => id !== indexDelete));
-  }
+  const onAdd = () => {
+    if (currentAuthor.length && currentTitle.length !== 0) {
+      setBooks([...books, addedField]);
+    } else {
+      alert("Проверьте правильность заполнения полей");
+    }
+    setCurrentAuthor("");
+    setCurrentTitle("");
+  };
+
+  const onDelete = (index) => {
+    setBooks(books.filter((item, id) => id !== index));
+  };
 
   return (
-    <div className=' min-h-screen min-w-screen flex flex-col justify-center items-center'>
-    <BooksBoard arrBooks={arrBooks} deleteBook={deleteBook}/>
-    <form className='flex flex-col' method="get">
-      <input onChange={(e) => setCurrentAuthor(e.target.value)} className='p-2 rounded-md bg-blue-200 text-stone-800 focus:outline-none font-bold mt-2 w-96' type="text" placeholder='Author (L.Name F.Name)'/>
-      <input onChange={(e) => setCurrentTitle(e.target.value)} className='p-2 rounded-md bg-blue-200 text-stone-800 focus:outline-none font-bold mt-2 w-96' type="text" placeholder='Title of book'/>
-      <a onClick={() => addBook()} className='p-2 rounded-md bg-stone-800 text-white focus:outline-none font-bold mt-2 text-center select-none hover:bg-amber-600 hover:duration-200 hover:ease-linear active:relative active:top-px active:duration-150 active:ease-linear active:shadow-xl'>Add book</a>
-    </form>
+    <div className="min-h-screen min-w-screen flex flex-col justify-center items-center bg-slate-50">
+      <BooksBoard books={books} onDelete={onDelete} />
+      <CounterBooks countBooks={books.length} />
+      <form className="flex flex-col mt-7" method="get" action="reset">
+        <Input setValue={setCurrentAuthor} placeholder={"Author"} />
+        <Input setValue={setCurrentTitle} placeholder={"Title of book"} />
+        <ButtonAdd onAdd={onAdd} />
+      </form>
     </div>
   );
 }
