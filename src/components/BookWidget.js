@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import CrossDelete from "../images/cross-delete.svg";
-import { useState } from "react";
+import React from "react";
+import CrossDelete from "./CrossDelete";
+
 
 function BookWidget({ author, title, index, onDelete }) {
   return (
@@ -18,12 +18,7 @@ function BookWidget({ author, title, index, onDelete }) {
         className="italic bg-transparent text-center hover:cursor-pointer active:outline active:outline-offset-2 active:outline-1 w-96"
         value={`"${title}"`}
       />
-      <img
-        onClick={() => onDelete(index)}
-        className="absolute right-0 top-2 w-4 h-4 hover:cursor-pointer hover:rotate-180 hover:ease-linear hover:duration-300"
-        src={CrossDelete}
-        alt="Delete field"
-      />
+      <CrossDelete onDelete={onDelete} index={index}/>
     </div>
   );
 }

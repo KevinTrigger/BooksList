@@ -1,19 +1,15 @@
 import BookWidget from "./BookWidget";
+import HeaderBoard from "./HeaderBoard";
 
-function BooksBoard({ books, onDelete }) {
+function BooksBoard({ books, onDelete, setBooks, onChangeValueAuthor }) {
   return (
-    <div className="w-2/3 h-96 border-2 border-slate-600 rounded-xl py-3 px-4 overflow-auto scrollbar">
-      <div className="flex flex-row justify-around uppercase font-semibold border-b border-solid border-opacity-40 border-gray-700 pb-2 select-none">
-        <span>Author</span>
-        <span>Title of book</span>
-      </div>
-
-      {/* Перебирать не books, а localStorage */}
-
+    <div className="extra-sm:w-11/12 extra-sm:text-xs md:text-base md:w-2/3 h-96 border-2 border-slate-600 rounded-xl py-3 px-4 overflow-auto scrollbar">
+      <HeaderBoard/>
       {books.map((elem, index) => {
         return (
           <div key={index}>
             <BookWidget
+              books={books}
               author={elem.author}
               title={elem.title}
               index={index}

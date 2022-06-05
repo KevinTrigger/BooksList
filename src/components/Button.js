@@ -1,6 +1,6 @@
 import React from "react";
 
-function ButtonAdd({onAdd}) {
+function Button({onAdd}) {
 
   return (
     <button
@@ -13,4 +13,4 @@ function ButtonAdd({onAdd}) {
   );
 }
 
-export default ButtonAdd;
+export default Button;

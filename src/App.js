@@ -1,7 +1,7 @@
 import "./App.css";
 import { useEffect, useState } from "react";
 import BooksBoard from "./components/BooksBoard";
-import ButtonAdd from "./components/ButtonAdd";
+import Button from "./components/Button";
 import Input from "./components/Input";
 import CounterBooks from "./components/CounterBooks";
 
@@ -37,13 +37,13 @@ function App() {
 
   return (
     <div className="min-h-screen min-w-screen flex flex-col justify-center items-center bg-slate-50">
-      <BooksBoard books={books} onDelete={onDelete} />
+      <BooksBoard books={books} onDelete={onDelete}/>
       <CounterBooks countBooks={books.length} />
-      <form className="flex flex-col mt-7" method="get" action="reset">
-        <Input setValue={setCurrentAuthor} placeholder={"Author"} />
+      <form className="extra-sm:w-11/12 md:w-96 flex flex-col mt-7" method="get" action="reset">
+      <Input setValue={setCurrentAuthor} placeholder={"Author"} />
         <Input setValue={setCurrentTitle} placeholder={"Title of book"} />
-        <ButtonAdd onAdd={onAdd} />
-      </form>
+        <Button onAdd={onAdd} />
+    </form>
     </div>
   );
 }
