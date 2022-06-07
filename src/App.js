@@ -22,7 +22,7 @@ function App() {
   };
 
   const onAdd = () => {
-    if (currentAuthor.length && currentTitle.length !== 0) {
+    if (currentAuthor.length && currentTitle.length) {
       setBooks([...books, addedField]);
     } else {
       alert("Проверьте правильность заполнения полей");
@@ -35,9 +35,10 @@ function App() {
     setBooks(books.filter((item, id) => id !== index));
   };
 
+
   return (
     <div className="min-h-screen min-w-screen flex flex-col justify-center items-center bg-slate-50">
-      <BooksBoard books={books} onDelete={onDelete}/>
+      <BooksBoard books={books} setBooks={setBooks} onDelete={onDelete}/>
       <CounterBooks countBooks={books.length} />
       <form className="extra-sm:w-11/12 md:w-96 flex flex-col mt-7" method="get" action="reset">
       <Input setValue={setCurrentAuthor} placeholder={"Author"} />
