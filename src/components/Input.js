@@ -1,7 +1,6 @@
 import React from "react";
 
-function Input({setValue, placeholder}) {
-
+function Input({ setValue, placeholder }) {
   return (
     <input
       onChange={(e) => setValue(e.target.value)}
